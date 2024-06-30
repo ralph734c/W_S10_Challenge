@@ -5,6 +5,7 @@ export const pizzaFormApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:9009/api/pizza/order",
   }),
+  tagTypes: ["Orders"],
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (order) => ({
@@ -12,6 +13,7 @@ export const pizzaFormApi = createApi({
         method: "POST",
         body: order,
       }),
+      invalidatesTags: ["Orders"],
     }),
   }),
 });

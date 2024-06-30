@@ -23,15 +23,6 @@ export default function PizzaForm() {
     }
   };
 
-  // const handleToppingsCheckboxChange = (event) => {
-  //   const value = event.target.value;
-  //   setToppings((prevState) =>
-  //     prevState.includes(value)
-  //       ? prevState.filter((topping) => topping !== value)
-  //       : [...prevState, value]
-  //   );
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,23 +32,6 @@ export default function PizzaForm() {
       console.error("Failed to submit order:", error);
     }
   };
-
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   const newPizzaOrder = {
-  //     fullName: fullName,
-  //     size: size,
-  //     toppings: toppings,
-  //   };
-
-  //   try {
-  //     await createOrder(newPizzaOrder).unwrap();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <form onSubmit={handleSubmit}>
