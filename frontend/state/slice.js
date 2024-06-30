@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialFormState = {
   fullName: "",
   size: "",
-  toppings: []
+  toppings: [],
 };
 
 const slice = createSlice({
@@ -23,8 +23,8 @@ const slice = createSlice({
     },
     resetForm(state) {
       state.formState = initialFormState;
-    }
-  }
+    },
+  },
 });
 
 export const { changeSize, updateForm, resetForm } = slice.actions;

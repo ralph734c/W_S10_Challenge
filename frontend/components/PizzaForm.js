@@ -4,8 +4,8 @@ import { useCreateOrderMutation } from "../state/pizzaFormApi";
 import { updateForm, resetForm } from "../state/slice";
 
 export default function PizzaForm() {
-  const formState = useSelector((state) => state.pizza.formState);
   const dispatch = useDispatch();
+  const formState = useSelector((state) => state.pizza.formState);
 
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
@@ -82,7 +82,7 @@ export default function PizzaForm() {
         <label>
           <input
             data-testid="checkPepperoni"
-            name="1"
+            name="Pepperoni"
             type="checkbox"
             value="1"
             checked={formState.toppings.includes("1")}
@@ -94,7 +94,7 @@ export default function PizzaForm() {
         <label>
           <input
             data-testid="checkGreenpeppers"
-            name="2"
+            name="Green Peppers"
             type="checkbox"
             value="2"
             checked={formState.toppings.includes("2")}
@@ -106,7 +106,7 @@ export default function PizzaForm() {
         <label>
           <input
             data-testid="checkPineapple"
-            name="3"
+            name="Pineapple"
             type="checkbox"
             value="3"
             checked={formState.toppings.includes("3")}
@@ -118,7 +118,7 @@ export default function PizzaForm() {
         <label>
           <input
             data-testid="checkMushrooms"
-            name="4"
+            name="Mushrooms"
             type="checkbox"
             value="4"
             checked={formState.toppings.includes("4")}
@@ -130,7 +130,7 @@ export default function PizzaForm() {
         <label>
           <input
             data-testid="checkHam"
-            name="5"
+            name="Ham"
             type="checkbox"
             value="5"
             checked={formState.toppings.includes("5")}

@@ -1,22 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { orderListApi } from "./orderListApi";
 import { pizzaFormApi } from "./pizzaFormApi";
-import pizzaReducer from "./slice"
+import pizzaReducer from "./slice";
 
 export const resetStore = () =>
   configureStore({
     reducer: {
       pizza: pizzaReducer,
-      // add your reducer(s) here
       [orderListApi.reducerPath]: orderListApi.reducer,
-      [pizzaFormApi.reducerPath]: pizzaFormApi.reducer
-
+      [pizzaFormApi.reducerPath]: pizzaFormApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
-        .concat(orderListApi.middleware, pizzaFormApi.middleware),
-        // if using RTK Query for your networking: add your middleware here
-        // if using Redux Thunk for your networking: you can ignore this
+      getDefaultMiddleware().concat(orderListApi.middleware, pizzaFormApi.middleware),
   });
 
 export const store = resetStore();

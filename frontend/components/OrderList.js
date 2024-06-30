@@ -20,7 +20,6 @@ export default function OrderList() {
       ? orders
       : orders?.filter((order) => order.size === filterSize);
 
-      console.log("Filtered Orders:", filteredOrders)
   return (
     <div id="orderList">
       <h2>Pizza Orders</h2>
@@ -36,19 +35,34 @@ export default function OrderList() {
       </ol>
       <div id="sizeFilters">
         Filter by size:
-        {["All", "S", "M", "L"].map((size) => {
-          const className = `button-filter${size === filterSize ? " active" : ""}`;
-          return (
-            <button
-              data-testid={`filterBtn${size}`}
-              className={className}
-              key={size}
-              onClick={() => handleFilterChange(size)}
-            >
-              {size}
-            </button>
-          );
-        })}
+        <button
+          data-testid="filterBtnAll"
+          className={`button-filter${filterSize === "All" ? " active" : ""}`}
+          onClick={() => handleFilterChange("All")}
+        >
+          All
+        </button>
+        <button
+          data-testid="filterBtnS"
+          className={`button-filter${filterSize === "S" ? " active" : ""}`}
+          onClick={() => handleFilterChange("S")}
+        >
+          S
+        </button>
+        <button
+          data-testid="filterBtnM"
+          className={`button-filter${filterSize === "M" ? " active" : ""}`}
+          onClick={() => handleFilterChange("M")}
+        >
+          M
+        </button>
+        <button
+          data-testid="filterBtnL"
+          className={`button-filter${filterSize === "L" ? " active" : ""}`}
+          onClick={() => handleFilterChange("L")}
+        >
+          L
+        </button>
       </div>
     </div>
   );
