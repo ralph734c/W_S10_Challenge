@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { orderListApi } from "./orderListApi";
 import { pizzaFormApi } from "./pizzaFormApi";
-import filterReducer from "./slice"
+import pizzaReducer from "./slice"
 
 export const resetStore = () =>
   configureStore({
     reducer: {
-      filter_state: filterReducer,
+      pizza: pizzaReducer,
       // add your reducer(s) here
       [orderListApi.reducerPath]: orderListApi.reducer,
       [pizzaFormApi.reducerPath]: pizzaFormApi.reducer

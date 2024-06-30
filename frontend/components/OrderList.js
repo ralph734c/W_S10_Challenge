@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeSize } from "../state/slice";
 
 export default function OrderList() {
-  const filterSize = useSelector((state) => state.filter_state.size);
+  const filterSize = useSelector((state) => state.pizza.filterState.size);
   const dispatch = useDispatch();
   const { data: orders, isLoading, error } = useGetOrdersQuery();
 
@@ -20,14 +20,16 @@ export default function OrderList() {
       ? orders
       : orders?.filter((order) => order.size === filterSize);
 
+      console.log("Filtered Orders:", filteredOrders)
   return (
     <div id="orderList">
       <h2>Pizza Orders</h2>
       <ol>
         {filteredOrders?.map((order) => {
+          const toppingsCount = order.toppings ? order.toppings.length : 0;
           return (
             <li key={order.id}>
-              <div>{`${order.customer} ordered a size ${order.size} with ${order.toppings.length} toppings`}</div>
+              <div>{`${order.customer} ordered a size ${order.size} with ${toppingsCount} toppings`}</div>
             </li>
           );
         })}

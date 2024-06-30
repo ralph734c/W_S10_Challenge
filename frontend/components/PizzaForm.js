@@ -1,37 +1,72 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useCreateOrderMutation } from "../state/pizzaFormApi";
-import { useDispatch } from "react-redux";
-
-const initialFormState = {
-  // suggested
-  fullName: "",
-  size: "",
-  1: false,
-  2: false,
-  3: false,
-  4: false,
-  5: false,
-};
+import { updateForm, resetForm } from "../state/slice";
 
 export default function PizzaForm() {
-  const [fullName, setFullName] = useState(initialFormState.fullName);
-  const [size, setSize] = useState(initialFormState.size);
-  const [toppings, setToppings] = useState({
-    1: initialFormState[1],
-    2: initialFormState[2],
-    3: initialFormState[3],
-    4: initialFormState[4],
-    5: initialFormState[5],
-  });
-  
+  const formState = useSelector((state) => state.pizza.formState);
+  const dispatch = useDispatch();
+
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
-  
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox") {
+      const newToppings = checked
+        ? [...formState.toppings, value]
+        : formState.toppings.filter((topping) => topping !== value);
+
+      dispatch(updateForm({ toppings: newToppings }));
+    } else {
+      dispatch(updateForm({ [name]: value }));
+    }
+  };
+
+  // const handleToppingsCheckboxChange = (event) => {
+  //   const value = event.target.value;
+  //   setToppings((prevState) =>
+  //     prevState.includes(value)
+  //       ? prevState.filter((topping) => topping !== value)
+  //       : [...prevState, value]
+  //   );
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createOrder(formState).unwrap();
+      dispatch(resetForm());
+    } catch (error) {
+      console.error("Failed to submit order:", error);
+    }
+  };
+
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   const newPizzaOrder = {
+  //     fullName: fullName,
+  //     size: size,
+  //     toppings: toppings,
+  //   };
+
+  //   try {
+  //     await createOrder(newPizzaOrder).unwrap();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Pizza Form</h2>
-      {true && <div className="pending">Order in progress...</div>}
-      {true && (
-        <div className="failure">Order failed: fullName is required</div>
+      {isLoading && <div className="pending">Order in progress...</div>}
+      {error && (
+        <div className="failure">
+          Order failed: {error.data?.message || "An error occurred"}
+        </div>
       )}
 
       <div className="input-group">
@@ -44,6 +79,8 @@ export default function PizzaForm() {
             name="fullName"
             placeholder="Type full name"
             type="text"
+            value={formState.fullName}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -52,7 +89,13 @@ export default function PizzaForm() {
         <div>
           <label htmlFor="size">Size</label>
           <br />
-          <select data-testid="sizeSelect" id="size" name="size">
+          <select
+            data-testid="sizeSelect"
+            id="size"
+            name="size"
+            value={formState.size}
+            onChange={handleChange}
+          >
             <option value="">----Choose size----</option>
             <option value="S">Small</option>
             <option value="M">Medium</option>
@@ -63,27 +106,62 @@ export default function PizzaForm() {
 
       <div className="input-group">
         <label>
-          <input data-testid="checkPepperoni" name="1" type="checkbox" />
+          <input
+            data-testid="checkPepperoni"
+            name="1"
+            type="checkbox"
+            value="1"
+            checked={formState.toppings.includes("1")}
+            onChange={handleChange}
+          />
           Pepperoni
           <br />
         </label>
         <label>
-          <input data-testid="checkGreenpeppers" name="2" type="checkbox" />
+          <input
+            data-testid="checkGreenpeppers"
+            name="2"
+            type="checkbox"
+            value="2"
+            checked={formState.toppings.includes("2")}
+            onChange={handleChange}
+          />
           Green Peppers
           <br />
         </label>
         <label>
-          <input data-testid="checkPineapple" name="3" type="checkbox" />
+          <input
+            data-testid="checkPineapple"
+            name="3"
+            type="checkbox"
+            value="3"
+            checked={formState.toppings.includes("3")}
+            onChange={handleChange}
+          />
           Pineapple
           <br />
         </label>
         <label>
-          <input data-testid="checkMushrooms" name="4" type="checkbox" />
+          <input
+            data-testid="checkMushrooms"
+            name="4"
+            type="checkbox"
+            value="4"
+            checked={formState.toppings.includes("4")}
+            onChange={handleChange}
+          />
           Mushrooms
           <br />
         </label>
         <label>
-          <input data-testid="checkHam" name="5" type="checkbox" />
+          <input
+            data-testid="checkHam"
+            name="5"
+            type="checkbox"
+            value="5"
+            checked={formState.toppings.includes("5")}
+            onChange={handleChange}
+          />
           Ham
           <br />
         </label>

@@ -7,10 +7,10 @@ export const pizzaFormApi = createApi({
   }),
   endpoints: (builder) => ({
     createOrder: builder.mutation({
-      query: (fullName, size, toppings) => ({
+      query: (order) => ({
         url: "",
         method: "POST",
-        body: { fullName, size, toppings },
+        body: order,
       }),
     }),
   }),

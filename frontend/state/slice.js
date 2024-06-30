@@ -1,16 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialFormState = {
+  fullName: "",
+  size: "",
+  toppings: []
+};
+
 const slice = createSlice({
-  name: "filter_state",
+  name: "pizza",
   initialState: {
-    size: "All",
+    filterState: {
+      size: "All",
+    },
+    formState: initialFormState,
   },
   reducers: {
     changeSize(state, action) {
-      state.size = action.payload;
+      state.filterState.size = action.payload;
     },
-  },
+    updateForm(state, action) {
+      state.formState = { ...state.formState, ...action.payload };
+    },
+    resetForm(state) {
+      state.formState = initialFormState;
+    }
+  }
 });
 
-export const { changeSize } = slice.actions;
+export const { changeSize, updateForm, resetForm } = slice.actions;
 export default slice.reducer;
