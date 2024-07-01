@@ -9,8 +9,8 @@ export default function PizzaForm() {
 
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
 
     if (type === "checkbox") {
       const newToppings = checked
@@ -23,8 +23,8 @@ export default function PizzaForm() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       await createOrder(formState).unwrap();
       dispatch(resetForm());
