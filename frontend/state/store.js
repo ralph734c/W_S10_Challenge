@@ -5,7 +5,8 @@ import pizzaReducer from './slice';
 export const resetStore = () =>
   configureStore({
     reducer: {
-      pizza: pizzaReducer,
+      pizza: pizzaReducer.form,
+      message: pizzaReducer.message,
       [pizzaApi.reducerPath]: pizzaApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

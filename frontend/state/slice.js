@@ -6,7 +6,7 @@ const initialFormState = {
   toppings: [],
 };
 
-const slice = createSlice({
+const formSlice = createSlice({
   name: 'pizza',
   initialState: {
     filterState: {
@@ -27,5 +27,28 @@ const slice = createSlice({
   },
 });
 
-export const { changeSize, updateForm, resetForm } = slice.actions;
-export default slice.reducer;
+export const { changeSize, updateForm, resetForm } = formSlice.actions;
+
+const messageSlice = createSlice({
+  name: 'message',
+  initialState: {
+    textContent: null,
+    type: null,
+  },
+  reducers: {
+    setMessage: (state, action) => {
+      state.textContent = action.payload.textContent;
+      state.type = action.payload.type;
+    },
+    clearMessage: (state) => {
+      state.textContent = null;
+      state.type = null;
+    },
+  },
+});
+export const { setMessage, clearMessage } = messageSlice.actions;
+
+export default {
+  form: formSlice.reducer,
+  message: messageSlice.reducer,
+};

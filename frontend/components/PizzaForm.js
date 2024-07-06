@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCreateOrderMutation } from '../state/pizzaApi';
-import { updateForm, resetForm } from '../state/slice';
+import {
+  updateForm,
+  resetForm,
+  setMessage,
+  clearMessage,
+} from '../state/slice';
 
 export default function PizzaForm() {
   const dispatch = useDispatch();
   const formState = useSelector((state) => state.pizza.formState);
+  const message = useSelector((state) => state.message);
 
-  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const [createOrder, { isLoading }] =
+    useCreateOrderMutation();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -26,20 +33,37 @@ export default function PizzaForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createOrder(formState).unwrap();
+      const response = await createOrder(formState).unwrap();
+      dispatch(setMessage({ textContent: response.message, type: 'success' }));
       dispatch(resetForm());
     } catch (error) {
       console.error('Failed to submit order:', error);
+      dispatch(
+        setMessage({
+          textContent: error.data?.message || 'An error occurred',
+          type: 'failure',
+        })
+      );
     }
   };
+
+  useEffect(() => {
+    if (message.textContent) {
+      const timer = setTimeout(() => {
+        dispatch(clearMessage());
+      }, 20000);
+      return () => clearTimeout(timer);
+    }
+  }, [message, dispatch]);
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Pizza Form</h2>
       {isLoading && <div className="pending">Order in progress...</div>}
-      {error && (
-        <div className="failure">
-          Order failed: {error.data?.message || 'An error occurred'}
+      {message.textContent && (
+        <div className={message.type}>
+          {message.type === 'failure' ? 'Order failed: ' : ''}
+          {message.textContent}
         </div>
       )}
 
