@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialFormState = {
-  fullName: "",
-  size: "",
+  fullName: '',
+  size: '',
   toppings: [],
 };
 
 const slice = createSlice({
-  name: "pizza",
+  name: 'pizza',
   initialState: {
     filterState: {
-      size: "All",
+      size: 'All',
     },
     formState: initialFormState,
   },

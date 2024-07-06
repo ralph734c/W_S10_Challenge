@@ -1,7 +1,7 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useCreateOrderMutation } from "../state/pizzaFormApi";
-import { updateForm, resetForm } from "../state/slice";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCreateOrderMutation } from '../state/pizzaApi';
+import { updateForm, resetForm } from '../state/slice';
 
 export default function PizzaForm() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function PizzaForm() {
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
 
-    if (type === "checkbox") {
+    if (type === 'checkbox') {
       const newToppings = checked
         ? [...formState.toppings, value]
         : formState.toppings.filter((topping) => topping !== value);
@@ -29,7 +29,7 @@ export default function PizzaForm() {
       await createOrder(formState).unwrap();
       dispatch(resetForm());
     } catch (error) {
-      console.error("Failed to submit order:", error);
+      console.error('Failed to submit order:', error);
     }
   };
 
@@ -39,7 +39,7 @@ export default function PizzaForm() {
       {isLoading && <div className="pending">Order in progress...</div>}
       {error && (
         <div className="failure">
-          Order failed: {error.data?.message || "An error occurred"}
+          Order failed: {error.data?.message || 'An error occurred'}
         </div>
       )}
 
@@ -85,7 +85,7 @@ export default function PizzaForm() {
             name="Pepperoni"
             type="checkbox"
             value="1"
-            checked={formState.toppings.includes("1")}
+            checked={formState.toppings.includes('1')}
             onChange={handleChange}
           />
           Pepperoni
@@ -97,7 +97,7 @@ export default function PizzaForm() {
             name="Green Peppers"
             type="checkbox"
             value="2"
-            checked={formState.toppings.includes("2")}
+            checked={formState.toppings.includes('2')}
             onChange={handleChange}
           />
           Green Peppers
@@ -109,7 +109,7 @@ export default function PizzaForm() {
             name="Pineapple"
             type="checkbox"
             value="3"
-            checked={formState.toppings.includes("3")}
+            checked={formState.toppings.includes('3')}
             onChange={handleChange}
           />
           Pineapple
@@ -121,7 +121,7 @@ export default function PizzaForm() {
             name="Mushrooms"
             type="checkbox"
             value="4"
-            checked={formState.toppings.includes("4")}
+            checked={formState.toppings.includes('4')}
             onChange={handleChange}
           />
           Mushrooms
@@ -133,7 +133,7 @@ export default function PizzaForm() {
             name="Ham"
             type="checkbox"
             value="5"
-            checked={formState.toppings.includes("5")}
+            checked={formState.toppings.includes('5')}
             onChange={handleChange}
           />
           Ham

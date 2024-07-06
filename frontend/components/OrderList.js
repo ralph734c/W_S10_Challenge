@@ -1,7 +1,7 @@
-import React from "react";
-import { useGetOrdersQuery } from "../state/orderListApi";
-import { useSelector, useDispatch } from "react-redux";
-import { changeSize } from "../state/slice";
+import React from 'react';
+import { useGetOrdersQuery } from '../state/pizzaApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeSize } from '../state/slice';
 
 export default function OrderList() {
   const filterSize = useSelector((state) => state.pizza.filterState.size);
@@ -16,7 +16,7 @@ export default function OrderList() {
   };
 
   const filteredOrders =
-    filterSize === "All"
+    filterSize === 'All'
       ? orders
       : orders?.filter((order) => order.size === filterSize);
 
@@ -37,29 +37,29 @@ export default function OrderList() {
         Filter by size:
         <button
           data-testid="filterBtnAll"
-          className={`button-filter${filterSize === "All" ? " active" : ""}`}
-          onClick={() => handleFilterChange("All")}
+          className={`button-filter${filterSize === 'All' ? ' active' : ''}`}
+          onClick={() => handleFilterChange('All')}
         >
           All
         </button>
         <button
           data-testid="filterBtnS"
-          className={`button-filter${filterSize === "S" ? " active" : ""}`}
-          onClick={() => handleFilterChange("S")}
+          className={`button-filter${filterSize === 'S' ? ' active' : ''}`}
+          onClick={() => handleFilterChange('S')}
         >
           S
         </button>
         <button
           data-testid="filterBtnM"
-          className={`button-filter${filterSize === "M" ? " active" : ""}`}
-          onClick={() => handleFilterChange("M")}
+          className={`button-filter${filterSize === 'M' ? ' active' : ''}`}
+          onClick={() => handleFilterChange('M')}
         >
           M
         </button>
         <button
           data-testid="filterBtnL"
-          className={`button-filter${filterSize === "L" ? " active" : ""}`}
-          onClick={() => handleFilterChange("L")}
+          className={`button-filter${filterSize === 'L' ? ' active' : ''}`}
+          onClick={() => handleFilterChange('L')}
         >
           L
         </button>

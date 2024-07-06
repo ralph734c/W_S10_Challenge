@@ -1,17 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { orderListApi } from "./orderListApi";
-import { pizzaFormApi } from "./pizzaFormApi";
-import pizzaReducer from "./slice";
+import { configureStore } from '@reduxjs/toolkit';
+import { pizzaApi } from './pizzaApi';
+import pizzaReducer from './slice';
 
 export const resetStore = () =>
   configureStore({
     reducer: {
       pizza: pizzaReducer,
-      [orderListApi.reducerPath]: orderListApi.reducer,
-      [pizzaFormApi.reducerPath]: pizzaFormApi.reducer,
+      [pizzaApi.reducerPath]: pizzaApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(orderListApi.middleware, pizzaFormApi.middleware),
+      getDefaultMiddleware().concat(pizzaApi.middleware),
   });
 
 export const store = resetStore();
